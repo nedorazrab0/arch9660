@@ -8,3 +8,7 @@ bin="${2}"
 cfg="${3}"
 
 
+mkdir -p "${idir}/etc/systemd/"\
+{timesyncd,journald,zram-generator,system}.conf.d
+
+
