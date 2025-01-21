@@ -58,7 +58,7 @@ mcopy -i "${isodir}/esp.img" \
   '::/'
 mcopy -i "${isodir}/esp.img" \
   "${idir}/usr/lib/systemd/boot/efi/systemd-bootx64.efi" \
-  '::/EFI/BOOT/BOOTx64.EFI'
+  '::/EFI/BOOT/BOOTX64.EFI'
 mcopy -i "${isodir}/esp.img" \
   /var/loader.conf '::/loader'
 mcopy -i "${isodir}/esp.img" \
