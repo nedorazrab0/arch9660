@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# Move additional configs
+set -e
+
+idir="${1}"
+bin="${2}"
+cfg="${3}"
+
+
