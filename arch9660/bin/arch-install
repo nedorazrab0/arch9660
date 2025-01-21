@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+# Arch install script
+set -e
+
+bash -c \
+  "$(curl -f 'https://raw.githubusercontent.com/nedorazrab0/y2ai/main/ins')"
