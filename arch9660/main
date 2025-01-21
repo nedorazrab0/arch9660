@@ -71,6 +71,8 @@ rm -rf "${idir}/share/"{info,doc,help,gtk-doc,gir-1.0,man} \
 find "${idir}" -name '*.pacnew' \
   -o -name '*.pacsave' -o -name '*.pacorig' -delete
 
+# configs
+bash "${0%/*}/cpconfig" "${idir}" "${bin}" "${cfg}"
 
 # EROFS compressed img
 mkfs.erofs -Efragments,dedupe,force-inode-extended,ztailpacking --quiet \
