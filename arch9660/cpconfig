@@ -3,12 +3,22 @@
 # Move additional configs
 set -e
 
-idir="${1}"
+cdir="${1}/etc"
 bin="${2}"
 cfg="${3}"
 
+mkdir -p "${cdir}/"{sysctl.d,}
+mkdir -p "${cdir}/systemd/"\
+{timesyncd,journald,networkd,zram-generator,system}.conf.d
 
-mkdir -p "${idir}/etc/systemd/"\
-{timesyncd,journald,zram-generator,system}.conf.d
-
+cp "${cfg}/"{20-wired,25-wireless}.network \
+  "${cdir}/systemd/network"
+cp "${cfg}/zram.conf" \
+  "${cdir}/systemd/zram-generator.conf.d/zram.conf"
+cp "${cfg}/size.conf" \
+  "${cdir}/systemd/journald.conf.d/size.conf"
+cp "${cfg}/dns.conf" \
+  "${cdir}/systemd/networkd.conf.d/dns.conf"
+cp "${cfg}/timeout.conf" \
+  "${cdir}/systemd/system.conf.d/timeout.conf"
 
