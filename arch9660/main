@@ -22,7 +22,7 @@ pacstrap -cGP "${idir}" amd-ucode base bash-completion linux-zen \
   linux-firmware gptfdisk mkinitcpio mkinitcpio-archiso python \
   arch-install-scripts reflector btrfs-progs dosfstools iwd \
   iptables-nft less nano zram-generator &>/dev/null
-du -h "${idir}/boot"
+find "${idir}/boot"
 exit
 
 # Configs
