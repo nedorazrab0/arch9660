@@ -1,0 +1,23 @@
+name: rls
+on: workflow_dispatch
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Check out
+       uses: actions/checkout@v4
+     - name: dc
+       run: |
+         docker pull archlinux
+         docker run --name arch -dt --privileged archlinux:latest
+         docker cp ./arch9960 arch:/var
+         docker exec arch bash /var/arch9960/main
+         docker cp arch:/var/arch9660/img/arch9660.iso .
+         du -h ./*
+#         gh release delete iso || true
+#         gh release create iso arch9660.iso
+#       env:
+#         GH_TOKEN: ${{ github.token }}
