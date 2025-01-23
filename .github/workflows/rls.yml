@@ -15,7 +15,7 @@ jobs:
          docker pull archlinux
          docker run --name arch -dt --privileged archlinux:latest
          docker cp ./arch9660 arch:/var
-         docker exec arch bash /var/arch9960/main
+         docker exec arch bash /var/arch9660/main
          docker cp arch:/var/arch9660/img/arch9660.iso .
          du -h ./*
 #         gh release delete iso || true
