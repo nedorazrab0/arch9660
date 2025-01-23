@@ -17,8 +17,17 @@ jobs:
          docker cp ./arch9660 arch:/var
          docker exec arch bash /var/arch9660/main
          docker cp arch:/var/arch9660/img/arch9660.iso .
-         du -h ./*
-#         gh release delete iso || true
-#         gh release create iso arch9660.iso
-#       env:
-#         GH_TOKEN: ${{ github.token }}
+         docker stop arch
+
+     - name: SHA calculation
+       run: |
+         echo "sha=$(openssl sha256 ./arch9660.iso | cut -d ' ' -f2)" \
+           | tee -a "${GITHUB_ENV}"
+
+     - name: Releaseing
+       run: |
+         gh release delete iso --cleanup-tag -y || true
+         echo "SHA256: \`${sha}\`" \
+           | gh release create iso ./arch9660.iso -F -
+       env:
+         GH_TOKEN: ${{ github.token }}
