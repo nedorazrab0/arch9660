@@ -14,7 +14,7 @@ jobs:
          set -x
          docker pull archlinux
          docker run --name arch -dt --privileged archlinux:latest
-         docker cp . arch:/var
+         docker cp ./arch9960/. arch:/var
          docker exec arch bash /var/arch9960/main
          docker cp arch:/var/arch9660/img/arch9660.iso .
          du -h ./*
