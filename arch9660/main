@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Build an archiso
-set -ex
+set -e
 
 umask 0077
 cfg='/var/arch9660/cfg'
@@ -18,16 +18,14 @@ pacman -Sy arch-install-scripts mtools \
   xorriso dosfstools erofs-utils --noconfirm
 
 mkdir -p "${idir}" "${odir}" "${imgdir}"
+cp -RTa "${cfg}" "${idir}"
 pacstrap -cGP "${idir}" amd-ucode base bash-completion linux-zen \
   linux-firmware gptfdisk mkinitcpio mkinitcpio-archiso python \
   arch-install-scripts reflector btrfs-progs dosfstools iwd \
   iptables-nft less nano zram-generator &>/dev/null
-find "${idir}/boot"
-exit
 
 # Configs
 chmod -R 755 "${idir}/usr/local/bin"
-cp -RTa "${cfg}" "${idir}"
 sed -i "s/<UUID>/${iso_uuid}/" \
   "${idir}/boot/loader/entries/arch9660-zen.conf"
 
