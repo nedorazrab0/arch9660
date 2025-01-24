@@ -25,9 +25,11 @@ pacstrap -cGP "${idir}" amd-ucode base bash-completion linux-hardened \
   iptables-nft less nano zram-generator &>/dev/null
 
 # Configs
-chmod -R 755 "${idir}/usr/local/bin"
+ln -s /usr/share/zoneinfo/UTC "${idir}/etc/localtime"
+ln -s /usr/bin/y2ai "${idir}/usr/local/bin/arch-install"
 sed -i "s/<UUID>/${iso_uuid}/" \
   "${idir}/boot/loader/entries/arch9660-hardened.conf"
+chmod -R 755 "${idir}/usr/local/bin"
 
 date +'arch%d-%m-%y' \
   > "${idir}/etc/hostname"
