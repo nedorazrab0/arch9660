@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#
+# aliases
+set -e
+
+usage() {
+  cat << 'EOF'
+- Save some keystrokes
+  Usage: ${0##*/} [options]
+- Options:
+  a  Start `networkd` and `resolved` 
+     to get network connection
+  i  Start `iwd` service
+  s  Run `iwctl`
+  p  Start `reflector` service
+     to get mirrorlist
+- Example:
+  ${0##*/} asip
+  ${0##*/} pisa
+  ${0##*/} is
+EOF
+  exit "${1}"
+}
+
+[[ -z "${@}" ]] && usage 1
+[[ "${@}" =~ '--help' ]] && usage 0
+[[ "${@}" =~ 'a' ]] && systemctl start systemd-{networkd,resolved}
+[[ "${@}" =~ 'i' ]] && systemctl start iwd
+[[ "${@}" =~ 's' ]] && iwctl
+fi
+[[ "${@}" =~ 'p' ]] && systemctl start reflector
