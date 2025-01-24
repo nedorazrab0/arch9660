@@ -27,7 +27,7 @@ pacstrap -cGP "${idir}" amd-ucode base bash-completion linux-hardened \
 # Configs
 chmod -R 755 "${idir}/usr/local/bin"
 sed -i "s/<UUID>/${iso_uuid}/" \
-  "${idir}/boot/loader/entries/arch9660-zen.conf"
+  "${idir}/boot/loader/entries/arch9660-hardened.conf"
 
 date +'arch%d-%m-%y' \
   > "${idir}/etc/hostname"
@@ -55,7 +55,7 @@ mcopy -i "${imgdir}/esp.img" \
 mcopy -i "${imgdir}/esp.img" \
   "${idir}/boot/loader/loader.conf" '::/loader'
 mcopy -i "${imgdir}/esp.img" \
-  "${idir}/boot/loader/entries/arch9660-zen.conf" '::/loader/entries'
+  "${idir}/boot/loader/entries/arch9660-hardened.conf" '::/loader/entries'
 
 # Cleanup
 rm -rf "${idir}/"{boot,var/tmp,var/log,tmp}/* \
