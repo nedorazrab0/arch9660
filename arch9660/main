@@ -24,9 +24,6 @@ pacstrap -cGP "${idir}" amd-ucode base bash-completion linux-zen \
   arch-install-scripts reflector btrfs-progs dosfstools iwd \
   iptables-nft less nano zram-generator &>/dev/null
 
-ls -l "${idir}/usr/share/"
-exit
-
 # Configs
 chmod -R 755 "${idir}/usr/local/bin"
 sed -i "s/<UUID>/${iso_uuid}/" \
@@ -63,7 +60,7 @@ mcopy -i "${imgdir}/esp.img" \
 # Cleanup
 rm -rf "${idir}/"{boot,var/tmp,var/log,tmp}/* \
   "${idir}/var/cache/pacman/pkg/"* "${idir}/var/lib/pacman/sync/"*
-  "${idir}/usr/share/"{info,doc,help,gtk-doc,gir-1.0,man} \
+  "${idir}/usr/share/"{help,gtk-doc,gir-1.0,man} \
   "${idir}/usr/include" /usr/lib/lib{go,icudata}.so*
 find "${idir}" -name '*.pacnew' \
   -o -name '*.pacsave' -o -name '*.pacorig' -delete
