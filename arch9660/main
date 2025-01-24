@@ -19,7 +19,7 @@ pacman -Sy arch-install-scripts mtools \
 
 mkdir -p "${idir}" "${odir}" "${imgdir}"
 cp -RTa "${cfg}" "${idir}"
-pacstrap -cGP "${idir}" amd-ucode base bash-completion linux-zen \
+pacstrap -cGP "${idir}" amd-ucode base bash-completion linux-hardened \
   linux-firmware gptfdisk mkinitcpio mkinitcpio-archiso python \
   arch-install-scripts reflector btrfs-progs dosfstools iwd \
   iptables-nft less nano zram-generator &>/dev/null
