@@ -27,5 +27,4 @@ EOF
 [[ "${@}" =~ 'a' ]] && systemctl start systemd-{networkd,resolved}
 [[ "${@}" =~ 'i' ]] && systemctl start iwd
 [[ "${@}" =~ 's' ]] && iwctl
-fi
 [[ "${@}" =~ 'p' ]] && systemctl start reflector
