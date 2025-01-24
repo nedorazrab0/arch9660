@@ -59,7 +59,7 @@ mcopy -i "${imgdir}/esp.img" \
 
 # Cleanup
 rm -rf "${idir}/"{boot,var/tmp,var/log,tmp}/* \
-  "${idir}/var/cache/pacman/pkg/”* "${idir}/var/lib/pacman/sync/"*
+  "${idir}/var/cache/pacman/pkg/"* "${idir}/var/lib/pacman/sync/"*
   "${idir}/share/"{info,doc,help,gtk-doc,gir-1.0,man} \
   "${idir}/usr/include" /usr/lib/lib{go,icudata}.so*
 find "${idir}" -name '*.pacnew' \
