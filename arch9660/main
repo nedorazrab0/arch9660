@@ -3,7 +3,6 @@
 # Build an archiso
 set -e
 
-umask 0077
 cfg='/var/arch9660/cfg'
 idir='/var/arch9660/idir'
 odir='/var/arch9660/odir'
