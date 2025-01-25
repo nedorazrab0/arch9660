@@ -1,0 +1,12 @@
+set afterends
+set jumpyscrolling
+set indicator
+set linenumbers
+set minibar
+set multibuffer
+set nohelp
+set quickblank
+set stateflags
+set tabsize 2
+set tabstospaces
+include "/usr/share/nano/*.nanorc"
