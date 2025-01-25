@@ -4,9 +4,9 @@
 set -e
 
 usage() {
-  cat << EOF
+  cat << 'EOF'
 - Save some keystrokes
-  Usage: ${0##*/} [options]
+  Usage: rr [options]
 - Options:
   a  Start `networkd` and `resolved` 
      to get network connection
@@ -17,9 +17,9 @@ usage() {
   p  Init pacman keyring
      and refresh db
 - Example:
-  ${0##*/} asip
-  ${0##*/} pisa
-  ${0##*/} is
+  rr asip
+  rr pisa
+  rr is
 EOF
   exit "${1}"
 }
