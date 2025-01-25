@@ -74,7 +74,7 @@ find "${idir}/var/lib/pacman" \
 mkfs.erofs -Efragments,dedupe,force-inode-extended,ztailpacking --quiet \
   -T0 -zlzma,109,dictsize=8388608 -C1048576 "${odir}/airootfs.erofs" "${idir}"
 
-# ISO file
+# ISO9660 file build
 xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
   -volid 'ARCH9660' -appid 'arch9660' -preparer 'prepared by arch9660' \
   -publisher 'Arch9660 <https://github.com/nedorazrab0/arch9660>' \
