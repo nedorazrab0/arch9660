@@ -19,14 +19,14 @@ pacman -Sy arch-install-scripts mtools \
 
 mkdir -p "${idir}" "${odir}" "${imgdir}"
 cp -RTa "${cfg}" "${idir}"
-pacstrap -cGP "${idir}" amd-ucode base bash-completion linux-hardened \
+pacstrap -cG "${idir}" amd-ucode base bash-completion linux-hardened \
   linux-firmware gptfdisk mkinitcpio mkinitcpio-archiso python \
   arch-install-scripts reflector btrfs-progs dosfstools iwd \
   iptables-nft less nano zram-generator &>/dev/null
 
 # Configs
-ln -s /usr/share/zoneinfo/UTC "${idir}/etc/localtime"
-ln -s /usr/local/bin/y2ai "${idir}/usr/local/bin/arch-install"
+ln -sf /usr/share/zoneinfo/UTC "${idir}/etc/localtime"
+ln -sf /usr/local/bin/y2ai "${idir}/usr/local/bin/arch-install"
 sed -i "s/<UUID>/${iso_uuid}/" \
   "${idir}/boot/loader/entries/arch9660-hardened.conf"
 chmod -R 755 "${idir}/usr/local/bin"
@@ -82,4 +82,6 @@ xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
   -appended_part_as_gpt -partition_offset 16 -no-pad \
   -output "${imgdir}/arch9660.iso" "${odir}"
 
-du -h "${imgdir}/arch9660.iso"
+ls -lh "${imgdir}/arch9660.iso"
+file "${imgdir}/arch9660.iso"
+blkid "${imgdir}/arch9660.iso"
