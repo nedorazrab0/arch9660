@@ -63,7 +63,7 @@ rm -rf "${idir}/"{boot,var/tmp,var/log,tmp}/* \
   "${idir}/var/cache/pacman/pkg/"* "${idir}/var/lib/pacman/sync/"* \
   "${idir}/usr/share/"{gtk-doc,gir-1.0,man} \
   "${idir}/usr/include" /usr/lib/lib{go,icudata}.* \
-  "${idir}/usr/lib/firmware"{nvidia,intel}
+  "${idir}/usr/lib/firmware/"{nvidia,intel}
 find "${idir}" \( -name '*.pacnew' \
   -o -name '*.pacsave' -o -name '*.pacorig' \) -delete
 find "${idir}/var/lib/pacman" \
