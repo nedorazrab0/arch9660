@@ -68,7 +68,6 @@ find "${idir}" \( -name '*.pacnew' \
 find "${idir}/var/lib/pacman" \
   -maxdepth 1 -type f -delete
 
-
 # EROFS compressed img
 mkfs.erofs -Efragments,dedupe,force-inode-extended,ztailpacking --quiet \
   -T0 -zlzma,109,dictsize=8388608 -C1048576 "${odir}/airootfs.erofs" "${idir}"
