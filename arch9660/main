@@ -13,6 +13,7 @@ imgdir='/var/arch9660/img'
 printf -v iso_uuid '%(%F-%H-%M-%S-00)T' "${SOURCE_DATE_EPOCH}"
 export SOURCE_DATE_EPOCH
 
+cat "${cfg}/etc/pacman.conf" > /etc/pacman.conf
 pacman -Sy arch-install-scripts mtools \
   xorriso dosfstools erofs-utils --noconfirm
 
