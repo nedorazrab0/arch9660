@@ -25,6 +25,7 @@ pacstrap -cG "${idir}" amd-ucode base bash-completion linux-hardened \
   iptables-nft less nano zram-generator &>/dev/null
 
 # Configs
+ln -sf /etc/pam.d/su "${idir}/etc/pam.d/su-l"
 ln -sf /usr/share/zoneinfo/UTC "${idir}/etc/localtime"
 ln -sf /usr/local/bin/y2ai "${idir}/usr/local/bin/arch-install"
 sed -i "s/<UUID>/${iso_uuid}/" \
