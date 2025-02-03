@@ -22,15 +22,20 @@ jobs:
          docker cp arch:/var/arch9660/img/arch9660.iso .
          docker stop arch
 
-     - name: SHA calculation
+     - name: xxHash pkg install
        run: |
-         echo "sha=$(openssl sha256 ./arch9660.iso | cut -d ' ' -f2)" \
+         sudo apt update
+         sudo apt install xxhash
+
+     - name: xxHash-128 calculation
+       run: |
+         echo "xxh=$(xxhsum -H128 ./arch9660.iso | cut -d ' ' -f1)" \
            | tee -a "${GITHUB_ENV}"
 
      - name: Releaseing
        run: |
          gh release delete iso --cleanup-tag -y || true
-         echo "SHA256: \`${sha}\`" \
+         echo "xxHash-128: \`${xxh}\`" \
            | gh release create iso ./arch9660.iso -F -
        env:
          GH_TOKEN: ${{ github.token }}
