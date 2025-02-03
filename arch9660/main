@@ -19,7 +19,7 @@ pacman -Sy arch-install-scripts mtools \
 
 mkdir -p "${idir}" "${odir}" "${imgdir}"
 cp -RTa "${cfg}" "${idir}"
-pacstrap -cG "${idir}" amd-ucode base bash-completion linux-hardened \
+pacstrap -cG "${idir}" amd-ucode base bash-completion linux-zen \
   linux-firmware gptfdisk mkinitcpio mkinitcpio-archiso python \
   arch-install-scripts reflector btrfs-progs dosfstools iwd \
   iptables-nft less nano zram-generator &>/dev/null
@@ -29,7 +29,7 @@ ln -sf /etc/pam.d/su "${idir}/etc/pam.d/su-l"
 ln -sf /usr/share/zoneinfo/UTC "${idir}/etc/localtime"
 ln -sf /usr/local/bin/y2ai "${idir}/usr/local/bin/arch-install"
 sed -i "s/<UUID>/${iso_uuid}/" \
-  "${idir}/boot/loader/entries/arch9660-hardened.conf"
+  "${idir}/boot/loader/entries/arch9660-zen.conf"
 chmod -R 755 "${idir}/usr/local/bin"
 
 date +'arch%d-%m-%y' \
@@ -50,7 +50,7 @@ mmd -i "${imgdir}/esp.img" \
   '::/EFI' '::/EFI/BOOT'
 
 mcopy -i "${imgdir}/esp.img" \
-  "${idir}/boot/"{vmlinuz-linux-hardened,initramfs-linux-hardened.img} \
+  "${idir}/boot/"{vmlinuz-linux-zen,initramfs-linux-zen.img} \
   '::/'
 mcopy -i "${imgdir}/esp.img" \
   "${idir}/usr/lib/systemd/boot/efi/systemd-bootx64.efi" \
@@ -58,7 +58,7 @@ mcopy -i "${imgdir}/esp.img" \
 mcopy -i "${imgdir}/esp.img" \
   "${idir}/boot/loader/loader.conf" '::/loader'
 mcopy -i "${imgdir}/esp.img" \
-  "${idir}/boot/loader/entries/arch9660-hardened.conf" '::/loader/entries'
+  "${idir}/boot/loader/entries/arch9660-zen.conf" '::/loader/entries'
 
 # Cleanup
 rm -rf "${idir}/"{boot,var/tmp,var/log,tmp}/* \
