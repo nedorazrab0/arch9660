@@ -13,6 +13,11 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v4
 
+     - name: Delete old release
+       run: gh release delete iso --cleanup-tag -y || true
+       env:
+         GH_TOKEN: ${{ github.token }}
+
      - name: Build
        run: |
          docker pull archlinux
@@ -22,20 +27,19 @@ jobs:
          docker cp arch:/var/arch9660/img/arch9660.iso .
          docker stop arch
 
-     - name: xxHash pkg install
+     - name: Install pkgs
        run: |
          sudo apt update
          sudo apt install xxhash
 
-     - name: xxHash-128 calculation
+     - name: Hash calculate
        run: |
-         echo "xxh=$(xxhsum -H128 ./arch9660.iso | cut -d ' ' -f1)" \
+         echo "xxh=$(xxhsum -H2 ./arch9660.iso | cut -d ' ' -f1)" \
            | tee -a "${GITHUB_ENV}"
 
-     - name: Releaseing
+     - name: Release
        run: |
-         gh release delete iso --cleanup-tag -y || true
-         echo "xxHash-128: \`${xxh}\`" \
+         echo "XXH128: \`${xxh}\`" \
            | gh release create iso ./arch9660.iso -F -
        env:
          GH_TOKEN: ${{ github.token }}
