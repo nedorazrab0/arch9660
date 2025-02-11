@@ -72,7 +72,8 @@ find "${idir}/var/lib/pacman" \
   -maxdepth 1 -type f -delete
 
 # EROFS compressed img
-mkfs.erofs -Efragments,dedupe,force-inode-extended,ztailpacking --quiet \
+mkfs.erofs --quiet -L 'arch9660' \
+  -Efragments,fragdedupe=full,force-inode-extended,ztailpacking \
   -T0 -zlzma,109,dictsize=8388608 -C1048576 "${odir}/airootfs.erofs" "${idir}"
 
 # ISO9660 file build
