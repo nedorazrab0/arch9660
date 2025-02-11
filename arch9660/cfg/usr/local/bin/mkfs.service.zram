@@ -6,7 +6,7 @@ set -e
 if lsmod | grep -qw '^null_blk '; then
   blk=1
 else
-  modprobe null_blk 'nr_devices=2' 'no_sched=1'
+  modprobe null_blk 'nr_devices=2'
   blk=0
 fi
 
