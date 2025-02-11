@@ -72,10 +72,10 @@ find "${idir}/var/lib/pacman" \
   -maxdepth 1 -type f -delete
 
 # EROFS compressed img
-mkfs.erofs -d9 --quiet -L 'arch9660' \
+echo '- Compressing EROFS...'
+mkfs.erofs --quiet -L 'arch9660' \
   -E'fragments,fragdedupe=full,force-inode-extended,ztailpacking,xattr-name-filter' \
-  -T0 -z'lz4hc',12 -C1048576 "${odir}/airootfs.erofs" "${idir}"
-  #-T0 -z'lzma',109,dictsize=8388608 -C1048576 "${odir}/airootfs.erofs" "${idir}"
+  -T0 -z'lzma',109,dictsize=8388608 -C1048576 "${odir}/airootfs.erofs" "${idir}"
 
 # ISO9660 file build
 xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
