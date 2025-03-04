@@ -20,7 +20,7 @@ jobs:
 
      - name: Build
        run: |
-         docker pull archlinux
+         docker pull archlinux:latest
          docker run --name arch -dt --privileged archlinux:latest
          docker cp ./arch9660 arch:/var
          docker exec arch bash /var/arch9660/main
