@@ -88,3 +88,4 @@ xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
 
 blkid "${imgdir}/arch9660.iso"
 du -hs "${imgdir}/arch9660.iso"
+echo "${bootsize} ${espsise}"
