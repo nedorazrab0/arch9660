@@ -39,6 +39,7 @@ date +'arch%d-%m-%y' \
 chmod 400 "${idir}/etc/shadow"
 
 # ESP
+du -ah "${idir}/boot"
 rm -f "${idir}/boot/amd-ucode.img"
 bootsize="$(du -B1024 -s "${idir}/boot" | awk '{print $1}')"
 espsize="$((bootsize + 512))"
