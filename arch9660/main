@@ -39,7 +39,6 @@ date +'arch%d-%m-%y' \
 chmod 400 "${idir}/etc/shadow"
 
 # ESP
-du -ah "${idir}/boot"
 rm -f "${idir}/boot/amd-ucode.img"
 bootsize="$(du -B1024 -s "${idir}/boot" | awk '{print $1}')"
 espsize="$((bootsize + 512))"
@@ -89,4 +88,3 @@ xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
 
 blkid "${imgdir}/arch9660.iso"
 du -hs "${imgdir}/arch9660.iso"
-echo "${bootsize} ${espsise}"
