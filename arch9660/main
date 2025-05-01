@@ -22,7 +22,7 @@ cp -aT "${cfg}" "${idir}"
 pacstrap -cG "${idir}" amd-ucode base bash-completion linux-zen \
   linux-firmware gptfdisk mkinitcpio mkinitcpio-archiso python \
   arch-install-scripts reflector btrfs-progs dosfstools iwd xxhash \
-  iptables-nft xfsprogs less nano zram-generator syslinux &>/dev/null
+  iptables-nft xfsprogs less nano zram-generator &>/dev/null
 
 # Configs
 ln -svf /etc/pam.d/su "${idir}/etc/pam.d/su-l"
@@ -41,7 +41,7 @@ chmod 400 "${idir}/etc/shadow"
 # ESP
 rm -f "${idir}/boot/amd-ucode.img"
 bootsize="$(du -B1024 -s "${idir}/boot" | awk '{print $1}')"
-espsize="$((bootsize + 2048))"
+espsize="$((bootsize + 512))"
 
 mkfs.fat -F32 -S512 -R2 -v -f1 -s1 -b0 -n 'ESP9660' \
   --codepage=437 -C "${imgdir}/esp.img" "${espsize}"
