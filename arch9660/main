@@ -79,7 +79,8 @@ mkfs.erofs --quiet -L 'arch9660' \
   -T0 -z'lzma',109,dictsize=8388608 -C1048576 "${odir}/airootfs.erofs" "${idir}"
 
 # ISO9660 file build
-mv "${imgdir}/esp.img" "${idir}/boot"
+mkdir -p "${odir}/boot"
+mv "${imgdir}/esp.img" "${odir}/boot"
 
 xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
   -volid 'ARCH9660' -appid 'arch9660' -preparer 'prepared by arch9660' \
