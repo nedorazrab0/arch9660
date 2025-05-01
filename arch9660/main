@@ -79,13 +79,13 @@ mkfs.erofs --quiet -L 'arch9660' \
   -T0 -z'lzma',109,dictsize=8388608 -C1048576 "${odir}/airootfs.erofs" "${idir}"
 
 # ISO9660 file build
+mv "${imgdir}/esp.img" "${idir}/boot"
+
 xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
   -volid 'ARCH9660' -appid 'arch9660' -preparer 'prepared by arch9660' \
   -publisher 'Arch9660 <https://github.com/nedorazrab0/arch9660>' \
-  -append_partition 2 'C12A7328-F81F-11D2-BA4B-00A0C93EC93B' "${imgdir}/esp.img" \
-  -appended_part_as_gpt -partition_offset 16 -no-pad \
-  -eltorito-alt-boot -e --interval:appended_partition_2:all:: -no-emul-boot \
-  -output "${imgdir}/arch9660.iso" "${odir}"
+  -no-pad -eltorito-alt-boot -e boot/esp.img -no-emul-boot \
+  -eltorito-catalog boot/boot.cat -output "${imgdir}/arch9660.iso" "${odir}"
 
 blkid "${imgdir}/arch9660.iso"
 du -hs "${imgdir}/arch9660.iso"
