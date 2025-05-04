@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Build an archiso
-set -e
+set -ex
 
 cfg='/var/arch9660/cfg'
 idir='/var/arch9660/idir'
@@ -61,6 +61,8 @@ mcopy -i "${imgdir}/esp.img" \
 mcopy -i "${imgdir}/esp.img" \
   "${idir}/boot/loader/entries/arch9660-zen.conf" '::/loader/entries'
 
+ls -lh "${imgdir}/esp.img"
+
 # Cleanup
 rm -rf "${idir}/"{boot,var/tmp,var/log,tmp}/* \
   "${idir}/var/cache/pacman/pkg/"* "${idir}/var/lib/pacman/sync/"* \
@@ -87,5 +89,6 @@ xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
   -eltorito-alt-boot -e --interval:appended_partition_2:all:: \
   -no-emul-boot -output "${imgdir}/arch9660.iso" "${odir}"
 
+echo '===='
+ls -lh "${imgdir}/arch9660.iso"
 blkid "${imgdir}/arch9660.iso"
-du -hs "${imgdir}/arch9660.iso"
