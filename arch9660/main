@@ -66,11 +66,11 @@ du -h -d1 "${idir}/boot/" \
 ls -lh "${imgdir}/esp.img"
 
 # Cleanup
-rm -rf -- "${idir}/"{boot,var/tmp,var/log,tmp}/* \
-  "${idir}/var/cache/pacman/pkg/"* "${idir}/var/lib/pacman/sync/"* \
-  "${idir}/usr/share/"{gtk-doc,gir-1.0,man} \
-  "${idir}/usr/include" /usr/lib/lib{go,icudata}.* #\
-#  "${idir}/usr/lib/firmware/"{nvidia,intel}
+# "${idir}/"{boot,var/tmp,var/log,tmp}/* \
+#  "${idir}/var/cache/pacman/pkg/"* "${idir}/var/lib/pacman/sync/"* \
+#  "${idir}/usr/share/"{gtk-doc,gir-1.0,man} \
+#  "${idir}/usr/include" /usr/lib/lib{go,icudata}.* #\
+rm -rf --  "${idir}/usr/lib/firmware/"{nvidia,intel}
 
 find "${idir}" \( -name '*.pacnew' \
   -o -name '*.pacsave' -o -name '*.pacorig' \) -delete
@@ -93,5 +93,8 @@ xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
   -no-emul-boot -output "${imgdir}/arch9660.iso" "${odir}"
 
 echo '===='
+du -h -d1 "${idir}"
+echo '===='
+
 ls -lh "${imgdir}/arch9660.iso"
 blkid "${imgdir}/arch9660.iso"
