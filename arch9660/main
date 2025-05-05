@@ -97,6 +97,10 @@ du -h -d1 "${idir}"
 echo '===='
 du -h -d1 "${idir}/usr"
 echo '===='
+du -h -d1 "${idir}/usr/lib"
+echo '===='
+du -h -d1 "${idir}/usr/lib/modules"
+echo '===='
 
 ls -lh "${imgdir}/arch9660.iso"
 blkid "${imgdir}/arch9660.iso"
