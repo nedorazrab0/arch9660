@@ -95,6 +95,8 @@ xorriso -no_rc -temp_mem_limit 1024m -as mkisofs -iso-level 2 -rational-rock \
 echo '===='
 du -h -d1 "${idir}"
 echo '===='
+du -h -d1 "${idir}/usr"
+echo '===='
 
 ls -lh "${imgdir}/arch9660.iso"
 blkid "${imgdir}/arch9660.iso"
