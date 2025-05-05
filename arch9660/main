@@ -29,13 +29,12 @@ ln -svf /etc/pam.d/su "${idir}/etc/pam.d/su-l"
 ln -svf /usr/share/zoneinfo/UTC "${idir}/etc/localtime"
 ln -svf /usr/local/bin/y2ai "${idir}/usr/local/bin/arch-install"
 ln -svf /dev/null /etc/systemd/system/systemd-networkd-wait-online.service
+
 sed -i "s/<UUID>/${iso_uuid}/" \
   "${idir}/boot/loader/entries/arch9660-zen.conf"
 chmod -R 755 "${idir}/usr/local/bin"
 
-date +'arch%d-%m-%y' \
-  > "${idir}/etc/hostname"
-
+date +'arch%d-%m-%y' > "${idir}/etc/hostname"
 chmod 400 "${idir}/etc/shadow"
 
 # ESP
@@ -61,14 +60,17 @@ mcopy -i "${imgdir}/esp.img" \
 mcopy -i "${imgdir}/esp.img" \
   "${idir}/boot/loader/entries/arch9660-zen.conf" '::/loader/entries'
 
+du -h -d1 "${idir}/boot/" \
+  "${idir}/usr/lib/systemd/boot/efi/systemd-bootx64.efi"
 ls -lh "${imgdir}/esp.img"
 
 # Cleanup
-#rm -rf -- "${idir}/"{boot,var/tmp,var/log,tmp}/* \
-#  "${idir}/var/cache/pacman/pkg/"* "${idir}/var/lib/pacman/sync/"* \
-#  "${idir}/usr/share/"{gtk-doc,gir-1.0,man} \
-#  "${idir}/usr/include" /usr/lib/lib{go,icudata}.* \
+rm -rf -- "${idir}/"{boot,var/tmp,var/log,tmp}/* \
+  "${idir}/var/cache/pacman/pkg/"* "${idir}/var/lib/pacman/sync/"* \
+  "${idir}/usr/share/"{gtk-doc,gir-1.0,man} \
+  "${idir}/usr/include" /usr/lib/lib{go,icudata}.* #\
 #  "${idir}/usr/lib/firmware/"{nvidia,intel}
+
 find "${idir}" \( -name '*.pacnew' \
   -o -name '*.pacsave' -o -name '*.pacorig' \) -delete
 find "${idir}/var/lib/pacman" \
