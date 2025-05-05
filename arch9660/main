@@ -32,9 +32,10 @@ ln -svf /dev/null /etc/systemd/system/systemd-networkd-wait-online.service
 
 sed -i "s/<UUID>/${iso_uuid}/" \
   "${idir}/boot/loader/entries/arch9660-zen.conf"
-chmod -R 755 "${idir}/usr/local/bin"
 
-date +'arch%d-%m-%y' > "${idir}/etc/hostname"
+chmod -R 755 "${idir}/usr/local/bin"
+hostname="$(python3 ${idir}/usr/local/bin/hostnamegen)"
+echo "${hostname}-9960" > "${idir}/etc/hostname"
 chmod 400 "${idir}/etc/shadow"
 
 # ESP
