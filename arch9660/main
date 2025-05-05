@@ -25,8 +25,9 @@ pacstrap -cG "${idir}" amd-ucode base bash-completion linux-zen \
   iptables-nft xfsprogs less nano zram-generator &>/dev/null
 
 # Configs
-ln -svf /etc/pam.d/su "${idir}/etc/pam.d/su-l"
 ln -svf /usr/share/zoneinfo/UTC "${idir}/etc/localtime"
+ln -svf /etc/machine-id "${idir}/etc/hostname"
+ln -svf /etc/pam.d/su "${idir}/etc/pam.d/su-l"
 ln -svf /usr/local/bin/y2ai "${idir}/usr/local/bin/arch-install"
 ln -svf /dev/null /etc/systemd/system/systemd-networkd-wait-online.service
 
@@ -34,8 +35,6 @@ sed -i "s/<UUID>/${iso_uuid}/" \
   "${idir}/boot/loader/entries/arch9660-zen.conf"
 
 chmod -R 755 "${idir}/usr/local/bin"
-hostname="$(python3 ${idir}/usr/local/bin/hostnamegen)"
-echo "${hostname}-9660" > "${idir}/etc/hostname"
 chmod 400 "${idir}/etc/shadow"
 
 # ESP
