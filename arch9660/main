@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Build an archiso
-set -ex
+set -e
 
 cfg='/var/arch9660/cfg'
 idir='/var/arch9660/idir'
@@ -64,7 +64,7 @@ mcopy -i "${imgdir}/esp.img" \
 ls -lh "${imgdir}/esp.img"
 
 # Cleanup
-rm -rf "${idir}/"{boot,var/tmp,var/log,tmp}/* \
+rm -rvf -- "${idir}/"{boot,var/tmp,var/log,tmp}/* \
   "${idir}/var/cache/pacman/pkg/"* "${idir}/var/lib/pacman/sync/"* \
   "${idir}/usr/share/"{gtk-doc,gir-1.0,man} \
   "${idir}/usr/include" /usr/lib/lib{go,icudata}.* \
@@ -77,7 +77,7 @@ find "${idir}/var/lib/pacman" \
 # EROFS compressed img
 echo '- Compressing EROFS...'
 mkfs.erofs --quiet -L 'arch9660' \
-  -E'fragments,fragdedupe=full,force-inode-extended,ztailpacking,xattr-name-filter' \
+  -E'fragments,fragdedupe=full,force-inode-extended,ztailpacking' \
   -T0 -z'lzma',109,dictsize=8388608 -C1048576 "${odir}/airootfs.erofs" "${idir}"
 
 # ISO9660 file build
