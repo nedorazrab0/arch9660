@@ -35,7 +35,7 @@ sed -i "s/<UUID>/${iso_uuid}/" \
 
 chmod -R 755 "${idir}/usr/local/bin"
 hostname="$(python3 ${idir}/usr/local/bin/hostnamegen)"
-echo "${hostname}-9960" > "${idir}/etc/hostname"
+echo "${hostname}-9660" > "${idir}/etc/hostname"
 chmod 400 "${idir}/etc/shadow"
 
 # ESP
