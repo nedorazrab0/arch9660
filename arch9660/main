@@ -26,10 +26,11 @@ pacstrap -cG "${idir}" amd-ucode base bash-completion linux-zen \
 
 # Configs
 ln -svf /usr/share/zoneinfo/UTC "${idir}/etc/localtime"
-ln -svf /etc/machine-id "${idir}/etc/hostname"
 ln -svf /etc/pam.d/su "${idir}/etc/pam.d/su-l"
 ln -svf /usr/local/bin/y2ai "${idir}/usr/local/bin/arch-install"
 ln -svf /dev/null /etc/systemd/system/systemd-networkd-wait-online.service
+
+date '+arch%d-%m-%y' > "${idir}/etc/hostname"
 
 sed -i "s/<UUID>/${iso_uuid}/" \
   "${idir}/boot/loader/entries/arch9660-zen.conf"
