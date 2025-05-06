@@ -6,4 +6,4 @@ ExecStart=/usr/local/bin/sethostname
 Type=oneshot
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=local-fs.target
