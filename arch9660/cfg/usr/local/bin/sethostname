@@ -4,5 +4,5 @@
 set -e
 
 [[ -d '/run/archiso' ]] && suff='-live'
-hostname="$(python3 /usr/local/bin/hostnamegen)"
-hostnamectl set-hostname "${hostname}${suff}"
+hostname="$(python3 '/usr/local/bin/hostnamegen')"
+hostnamectl set-hostname --transient "${hostname}${suff}"
