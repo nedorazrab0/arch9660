@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# Set random host name
+set -e
+
+[[ -d '/run/archiso' ]] && suff='-live'
+hostname="$(python3 /usr/local/bin/hostnamegen)"
+hostnamectl set-hostname "${hostname}${suff}"
