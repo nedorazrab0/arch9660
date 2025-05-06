@@ -31,8 +31,6 @@ ln -svf /usr/local/bin/y2ai "${idir}/usr/local/bin/arch-install"
 
 ln -svf /dev/null \
   "${idir}/etc/systemd/system/systemd-networkd-wait-online.service"
-ln -svf /etc/systemd/system/hostname.service \
-  "${idir}/etc/systemd/system/multi-user.target.wants"
 
 date '+arch%d-%m-%y' > "${idir}/etc/hostname"
 
