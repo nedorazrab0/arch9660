@@ -5,7 +5,6 @@ set -e
 
 [[ -d '/run/archiso' ]] && suff='-live'
 hostname="$(python3 '/usr/local/bin/hostnamegen')"
- "${hostname}${suff}"
 
 echo "${hostname}${suff}" > '/etc/hostname'
 chmod 444 '/etc/hostname'
