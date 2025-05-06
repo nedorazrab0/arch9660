@@ -74,7 +74,7 @@ rm -rf -- "${idir}/"{boot,var/tmp,var/log,tmp}/* \
   "${idir}/usr/include" /usr/lib/lib{go,icudata}.* \
   "${idir}/usr/lib/firmware/"{nvidia,intel}
 
-rm -f -- "${modpath}/kernel/drivers/sound" \
+rm -rf -- "${modpath}/kernel/drivers/sound" \
   "${modpath}/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu.ko.zst"
 
 find "${idir}" \( -name '*.pacnew' \
