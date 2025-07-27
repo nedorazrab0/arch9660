@@ -64,7 +64,7 @@ make_esp() {
     "${pkg_strap_dir}/usr/lib/systemd/boot/efi/systemd-bootx64.efi" \
     '::/EFI/BOOT/BOOTX64.EFI'
   mcopy -i /var/esp.img \
-    "${pkg_strap_dir}/boot/initramfs-linux-hardened.img}" '::/'
+    "${pkg_strap_dir}/boot/initramfs-linux-hardened.img" '::/'
   mcopy -i /var/esp.img \
     "${pkg_strap_dir}/boot/vmlinuz-linux-hardened" '::/'
 }
