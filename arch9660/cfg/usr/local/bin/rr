@@ -1,41 +1,36 @@
 #!/usr/bin/env bash
 #
-# aliases
+# Network aliases
 set -e
 
 usage() {
-  cat << 'EOF'
-- Save some keystrokes
-  Usage: rr [options]
-- Options:
-  a  Start `networkd` and `resolved` 
-     to get network connection
-  i  Start `iwd` service
-  s  Run `iwctl`
-  r  Start `reflector` service
-     to get mirrorlist
-  p  Init pacman keyring
-     and refresh db
-- Example:
-  rr asip
-  rr pisa
-  rr is
-EOF
+  echo "usage: ${0##*/} [-h] [-a] [-s] [-i] [-p]"
+  echo
+  echo 'network aliases'
+  echo
+  echo 'options:'
+  echo '  -a  start networkd and resolved'
+  echo '  -s  start iwd service'
+  echo '  -i  run iwctl'
+
   exit "${1}"
 }
 
-[[ -z "${@}" ]] && usage 1
-[[ "${@}" =~ '--help' ]] && usage 0
-[[ "${@}" =~ 'a' ]] && systemctl start systemd-{networkd,resolved}
-[[ "${@}" =~ 'i' ]] && systemctl start iwd
-[[ "${@}" =~ 's' ]] && iwctl
-if [[ "${@}" =~ 'r' ]]; then
-  echo '- Reflector...'
-  systemctl start reflector
-fi
+main() {
+  local OPTARG
+  local arg
 
-if [[ "${@}" =~ 'p' ]]; then
-  pacman-key --init
-  pacman-key --populate archlinux
-  pacman -Syy
-fi
+  # Parse args
+  ((${#} == 0)) && usage 1 >&2
+  while getopts 'hasip' arg; do
+    case "${arg}" in
+      a) systemctl start systemd-{networkd,resolved} ;;
+      s) systemctl start iwd ;;
+      i) iwctl ;;
+      h) usage 0 ;;
+      *) usage 1 >&2 ;;
+    esac
+  done
+}
+
+main "${@}"
