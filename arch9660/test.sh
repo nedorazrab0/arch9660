@@ -118,10 +118,12 @@ main() {
   local pkg_strap_dir='/var/arch9660/pkg_strap_dir'
   local erofsdir='/var/arch9660/erofsdir'
   #imgdir='/var/arch9660/img'
+
+  prepare "${pkg_strap_dir}" "${cfg}" "${erofsdir}"
+
   local uuid
   uuid="$(python3 ./generate_fucking_xorriso_uuid)"
 
-  prepare "${pkg_strap_dir}" "${cfg}" "${erofsdir}"
   pkg_strap "${pkg_strap_dir}"
   configure_system "${pkg_strap_dir}" "${uuid}"
   make_esp "${pkg_strap_dir}"
