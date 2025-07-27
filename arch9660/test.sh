@@ -3,11 +3,6 @@
 # Build an archiso
 set -e
 
-cfg='/var/arch9660/cfg'
-pkg_strap_dir='/var/arch9660/pkg_strap_dir'
-erofsdir='/var/arch9660/erofsdir'
-imgdir='/var/arch9660/img'
-
 prepare() {
   local pkg_strap_dir="${1}"
   local cfg="${2}"
@@ -32,15 +27,14 @@ pkg_strap() {
 
 configure_system() {
   local pkg_strap_dir="${1}"
+  local uuid="${2}"
 
   ln -svf /usr/share/zoneinfo/UTC "${pkg_strap_dir}/etc/localtime"
   ln -svf /usr/local/bin/arch39 "${pkg_strap_dir}/usr/local/bin/arch-install"
-
   ln -svf /dev/null \
     "${pkg_strap_dir}/etc/systemd/system/systemd-networkd-wait-online.service"
 
   date '+arch%d-%m-%y' > "${pkg_strap_dir}/etc/hostname"
-
   sed -i "s/<UUID>/${uuid}/" \
     "${pkg_strap_dir}/boot/loader/entries/arch9660-hardened.conf"
 
@@ -120,9 +114,20 @@ make_isofile() {
 }
 
 main() {
+  local cfg='/var/arch9660/cfg'
+  local pkg_strap_dir='/var/arch9660/pkg_strap_dir'
+  local erofsdir='/var/arch9660/erofsdir'
+  #imgdir='/var/arch9660/img'
   local uuid
   uuid="$(python3 ./generate_fucking_xorriso_uuid)"
 
+  prepare "${pkg_strap_dir}" "${cfg}" "${erofsdir}"
+  pkg_strap "${pkg_strap_dir}"
+  configure_system "${pkg_strap_dir}" "${uuid}"
+  make_esp "${pkg_strap_dir}"
+  cleanup "${pkg_strap_dir}"
+  compress_airootfs "${pkg_strap_dir}" "${erofsdir}"
+  make_isofile "${erofsdir}" "${uuid}"
 }
 
 main
