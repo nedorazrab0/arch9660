@@ -9,7 +9,7 @@ prepare() {
   local erofsdir="${3}"
 
   mkdir -p -- "${pkg_strap_dir}" "${pkg_strap_dir}/etc" "${erofsdir}"
-  cp -- "${cfg}/etc/mkinitcpio"{.conf.d,.d} "${pkg_strap_dir}/etc"
+  cp -R -- "${cfg}/etc/mkinitcpio"{.conf.d,.d} "${pkg_strap_dir}/etc"
 
   cp -- "${cfg}/etc/pacman.conf" /etc
   pacman -Syu arch-install-scripts mtools python xorriso dosfstools \
