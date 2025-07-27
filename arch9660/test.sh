@@ -8,10 +8,10 @@ prepare() {
   local cfg="${2}"
   local erofsdir="${3}"
 
-  mkdir -p "${pkg_strap_dir}" "${erofsdir}"
-  cp -Ta "${cfg}" "${pkg_strap_dir}"
+  mkdir -p -- "${pkg_strap_dir}" "${erofsdir}"
+  cp -- "${cfg}/etc/mkinitcpio"{.conf.d,.d} "${pkg_strap_dir}/etc"
 
-  cp "${cfg}/etc/pacman.conf" /etc
+  cp -- "${cfg}/etc/pacman.conf" /etc
   pacman -Syu arch-install-scripts mtools python xorriso dosfstools \
     erofs-utils --noconfirm &> /dev/null
 }
@@ -27,7 +27,10 @@ pkg_strap() {
 
 configure_system() {
   local pkg_strap_dir="${1}"
-  local uuid="${2}"
+  local cfg="${2}"
+  local uuid="${3}"
+
+  cp -Ta -- "${cfg}" "${pkg_strap_dir}"
 
   ln -svf /usr/share/zoneinfo/UTC "${pkg_strap_dir}/etc/localtime"
   ln -svf /usr/local/bin/arch39 "${pkg_strap_dir}/usr/local/bin/arch-install"
@@ -120,12 +123,11 @@ main() {
   #imgdir='/var/arch9660/img'
 
   prepare "${pkg_strap_dir}" "${cfg}" "${erofsdir}"
-
   local uuid
   uuid="$(python3 /var/arch9660/generate-fucking-xorriso-uuid)"
 
   pkg_strap "${pkg_strap_dir}"
-  configure_system "${pkg_strap_dir}" "${uuid}"
+  configure_system "${pkg_strap_dir}" "${cfg}" "${uuid}"
   make_esp "${pkg_strap_dir}"
   cleanup "${pkg_strap_dir}"
   compress_airootfs "${pkg_strap_dir}" "${erofsdir}"
