@@ -13,7 +13,7 @@ prepare() {
 
   cp "${cfg}/etc/pacman.conf" /etc
   pacman -Syu arch-install-scripts mtools python xorriso dosfstools \
-    erofs-utils --noconfirm
+    erofs-utils --noconfirm &> /dev/null
 }
 
 pkg_strap() {
@@ -120,6 +120,12 @@ main() {
   #imgdir='/var/arch9660/img'
 
   prepare "${pkg_strap_dir}" "${cfg}" "${erofsdir}"
+
+  set +e
+  ls -l ./*
+  echo ====
+  ls -l /var/arch9660
+  exit 0
 
   local uuid
   uuid="$(python3 /var/arch9660/generate_fucking_xorriso_uuid)"
