@@ -121,14 +121,8 @@ main() {
 
   prepare "${pkg_strap_dir}" "${cfg}" "${erofsdir}"
 
-  set +e
-  ls -l ./*
-  echo ====
-  ls -l /var/arch9660
-  exit 0
-
   local uuid
-  uuid="$(python3 /var/arch9660/generate_fucking_xorriso_uuid)"
+  uuid="$(python3 /var/arch9660/generate-fucking-xorriso-uuid)"
 
   pkg_strap "${pkg_strap_dir}"
   configure_system "${pkg_strap_dir}" "${uuid}"
