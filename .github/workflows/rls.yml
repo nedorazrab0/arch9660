@@ -1,10 +1,5 @@
 name: rls
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "15 3 * * *"
-permissions:
-  contents: write
+on: workflow_dispatch
 
 jobs:
   release:
@@ -13,33 +8,10 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v4
 
-     - name: Delete old release
-       run: gh release delete iso --cleanup-tag -y || true
-       env:
-         GH_TOKEN: ${{ github.token }}
-
      - name: Build
        run: |
          docker pull archlinux:latest
          docker run --name arch -dt --privileged archlinux:latest
          docker cp ./arch9660 arch:/var
-         docker exec arch bash /var/arch9660/main
-         docker cp arch:/var/arch9660/img/arch9660.iso .
+         docker exec arch bash /var/arch9660/test.sh
          docker stop arch
-
-     - name: Install pkgs
-       run: |
-         sudo apt update
-         sudo apt install xxhash
-
-     - name: Hash calculate
-       run: |
-         echo "xxh=$(xxhsum -H2 ./arch9660.iso | cut -d ' ' -f1)" \
-           | tee -a "${GITHUB_ENV}"
-
-     - name: Release
-       run: |
-         echo "XXH128: \`${xxh}\`" \
-           | gh release create iso ./arch9660.iso -F -
-       env:
-         GH_TOKEN: ${{ github.token }}
