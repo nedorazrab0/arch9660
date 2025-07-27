@@ -8,7 +8,7 @@ prepare() {
   local cfg="${2}"
   local erofsdir="${3}"
 
-  mkdir -p -- "${pkg_strap_dir}" "${erofsdir}"
+  mkdir -p -- "${pkg_strap_dir}" "${pkg_strap_dir}/etc" "${erofsdir}"
   cp -- "${cfg}/etc/mkinitcpio"{.conf.d,.d} "${pkg_strap_dir}/etc"
 
   cp -- "${cfg}/etc/pacman.conf" /etc
