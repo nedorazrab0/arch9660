@@ -21,7 +21,7 @@ pkg_strap() {
 
   pacstrap -cG "${pkg_strap_dir}" amd-ucode base bash-completion \
     linux-hardened linux-firmware-{broadcom,realtek} gptfdisk mkinitcpio \
-    mkinitcpio-archiso python arch-install-scripts btrfs-progs \
+    mkinitcpio-archiso arch-install-scripts btrfs-progs \
     dosfstools iwd iptables-nft xfsprogs less nano zram-generator &>/dev/null
 }
 
