@@ -131,7 +131,7 @@ main() {
   make_esp "${pkg_strap_dir}"
   cleanup "${pkg_strap_dir}"
   compress_airootfs "${pkg_strap_dir}" "${erofsdir}"
-  make_isofile "${erofsdir}" "${uuid/-/}"
+  make_isofile "${erofsdir}" "${uuid//-/}"
 }
 
 main
