@@ -1,5 +1,5 @@
 conf() {
-  set +o history
+  #set +o history
   local completion_path='/usr/share/bash-completion/bash_completion'
   [[ -r "${completion_path}" ]] && . "${completion_path}"
 }
