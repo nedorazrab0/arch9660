@@ -42,7 +42,7 @@ configure_system() {
     "${pkg_strap_dir}/boot/loader/entries/arch9660-hardened.conf"
 
   chmod -R 755 "${pkg_strap_dir}/usr/local/bin"
-  chmod 400 "${pkg_strap_dir}/etc/shadow"
+  chmod 600 "${pkg_strap_dir}/etc/"{shadow,passwd}
 }
 
 make_esp() {
