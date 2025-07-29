@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Build an archiso
-set -e
+set -ex
 
 prepare() {
   local pkg_strap_dir="${1}"
