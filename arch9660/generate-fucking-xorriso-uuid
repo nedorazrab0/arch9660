@@ -9,11 +9,11 @@ def gen_num(a, b):
 
 def main():
   """I hate xorriso
-  yyyyMMddhhmmsscc
+  YYYYmmddHHMMSScc
   """
-  print(gen_num(1970, 2999) + gen_num(10, 13) + gen_num(10, 31)
-        + gen_num(10, 23) + gen_num(10, 59) + gen_num(10, 59)
-        + gen_num(10, 99))
+  print(gen_num(1970, 2999) + "-" + gen_num(10, 13) + "-" + gen_num(10, 31)
+        + "-" + gen_num(10, 23) + "-" + gen_num(10, 59) + gen_num(10, 59)
+        + "-" + gen_num(10, 99))
 
 if __name__ == "__main__":
     main()
