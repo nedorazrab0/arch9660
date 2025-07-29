@@ -4,7 +4,7 @@
 set -e
 
 usage() {
-  echo "usage: ${0##*/} [-h] [-a] [-s] [-i] [-p]"
+  echo "usage: ${0##*/} [-h] [-a] [-s] [-i]"
   echo
   echo 'network aliases'
   echo
