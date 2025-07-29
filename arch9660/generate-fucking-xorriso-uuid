@@ -12,7 +12,7 @@ def main():
   YYYYmmddHHMMSScc
   """
   print(gen_num(1970, 2999) + "-" + gen_num(10, 13) + "-" + gen_num(10, 31)
-        + "-" + gen_num(10, 23) + "-" + gen_num(10, 59) + gen_num(10, 59)
+        + "-" + gen_num(10, 23) + "-" + gen_num(10, 59) + "-" + gen_num(10, 59)
         + "-" + gen_num(10, 99))
 
 if __name__ == "__main__":
