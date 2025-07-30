@@ -22,7 +22,7 @@ main() {
 
   # Parse args
   ((${#} == 0)) && usage 1 >&2
-  while getopts 'hasip' arg; do
+  while getopts 'hasi' arg; do
     case "${arg}" in
       a) systemctl start systemd-{networkd,resolved} ;;
       s) systemctl start iwd ;;
