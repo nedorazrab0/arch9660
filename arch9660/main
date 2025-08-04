@@ -111,7 +111,7 @@ make_isofile() {
     -appid 'arch9660' -preparer 'prepared by arch9660' \
     -publisher 'Arch9660 <https://github.com/nedorazrab0/arch9660>' \
     -appended_part_as_gpt -partition_offset 16 -no-pad \
-    -append_partition 2 '0xEF' "/var/esp.img" \
+    -append_partition 2 '0xEF' '/var/esp.img' \
     -eltorito-alt-boot -e --interval:appended_partition_2:all:: \
     -no-emul-boot -output /var/arch9660.iso "${erofsdir}"
 }
@@ -120,7 +120,6 @@ main() {
   local cfg='/var/arch9660/cfg'
   local pkg_strap_dir='/var/arch9660/pkg_strap_dir'
   local erofsdir='/var/arch9660/erofsdir'
-  #imgdir='/var/arch9660/img'
 
   prepare "${pkg_strap_dir}" "${cfg}" "${erofsdir}"
   local uuid
@@ -132,9 +131,11 @@ main() {
   cleanup "${pkg_strap_dir}"
   compress_airootfs "${pkg_strap_dir}" "${erofsdir}"
   make_isofile "${erofsdir}" "${uuid//-/}"
+
+  echo '===='
+  ls -lh -- '/var/arch9660.iso'
+  file -s -- '/var/arch9660.iso'
+  blkid -- '/var/arch9660.iso'
 }
 
 main
-
-ls -lh "/var/arch9660.iso"
-blkid "/var/arch9660.iso"
