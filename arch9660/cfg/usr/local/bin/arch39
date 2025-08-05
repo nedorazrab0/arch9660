@@ -3,5 +3,5 @@
 # Arch install script
 set -e
 
-bash -c \
+bash -c -- \
   "$(curl -f 'https://raw.githubusercontent.com/nedorazrab0/arch39/main/ins')"
