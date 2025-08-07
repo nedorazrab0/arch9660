@@ -134,7 +134,7 @@ main() {
 
   echo '===='
   ls -lh -- '/var/arch9660.iso'
-  file -s -- '/var/arch9660.iso'
+  file -- '/var/arch9660.iso'
   blkid -- '/var/arch9660.iso'
 }
 
