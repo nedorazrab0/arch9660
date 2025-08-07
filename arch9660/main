@@ -18,11 +18,14 @@ prepare() {
 
 pkg_strap() {
   local pkg_strap_dir="${1}"
+  local kernel='linux-rt-lts'
 
-  pacstrap -cG "${pkg_strap_dir}" amd-ucode base bash-completion \
-    linux-hardened linux-firmware-{broadcom,realtek} gptfdisk mkinitcpio \
-    mkinitcpio-archiso arch-install-scripts btrfs-progs \
-    dosfstools iwd iptables-nft xfsprogs less nano zram-generator &>/dev/null
+  pm -Sii "${kernel}"
+
+  pacstrap -cG "${pkg_strap_dir}" amd-ucode "${kernel}" base bash-completion \
+    linux-firmware-{broadcom,realtek} gptfdisk mkinitcpio{,-archiso} \
+    arch-install-scripts btrfs-progs dosfstools iwd iptables-nft xfsprogs \
+    less nano zram-generator &>/dev/null
 }
 
 configure_system() {
@@ -39,7 +42,7 @@ configure_system() {
 
   date '+arch%d-%m-%y' > "${pkg_strap_dir}/etc/hostname"
   sed -i "s/<UUID>/${uuid}/" \
-    "${pkg_strap_dir}/boot/loader/entries/arch9660-hardened.conf"
+    "${pkg_strap_dir}/boot/loader/entries/arch9660-rt-lts.conf"
 
   chmod -R 755 "${pkg_strap_dir}/usr/local/bin"
   chmod 600 "${pkg_strap_dir}/etc/"{shadow,passwd}
@@ -61,15 +64,15 @@ make_esp() {
   # Copy files to esp img
   mcopy -i /var/esp.img "${pkg_strap_dir}/boot/loader/loader.conf" '::/loader'
   mcopy -i /var/esp.img \
-    "${pkg_strap_dir}/boot/loader/entries/arch9660-hardened.conf" \
+    "${pkg_strap_dir}/boot/loader/entries/arch9660-rt-lts.conf" \
     '::/loader/entries'
   mcopy -i /var/esp.img \
     "${pkg_strap_dir}/usr/lib/systemd/boot/efi/systemd-bootx64.efi" \
     '::/EFI/BOOT/BOOTX64.EFI'
   mcopy -i /var/esp.img \
-    "${pkg_strap_dir}/boot/initramfs-linux-hardened.img" '::/'
+    "${pkg_strap_dir}/boot/initramfs-linux-rt-lts.img" '::/'
   mcopy -i /var/esp.img \
-    "${pkg_strap_dir}/boot/vmlinuz-linux-hardened" '::/'
+    "${pkg_strap_dir}/boot/vmlinuz-linux-rt-lts" '::/'
 }
 
 cleanup() {
