@@ -20,7 +20,7 @@ pkg_strap() {
   local pkg_strap_dir="${1}"
   local kernel='linux-rt-lts'
 
-  pm -Sii "${kernel}"
+  pacman -Sii "${kernel}"
 
   pacstrap -cG "${pkg_strap_dir}" amd-ucode "${kernel}" base bash-completion \
     linux-firmware-{broadcom,realtek} gptfdisk mkinitcpio{,-archiso} \
